@@ -81,6 +81,17 @@ const StudentModel = {
       console.error(error)
       throw new Error('Failed to update student')
     }
+  },
+  async deleteStudenrt (MaSV) {
+    const queryText = `Delete FROM Public."Student" Where "MaSV" =$1`
+    const value = [MaSV]
+    try {
+      const res = await query(queryText, value)
+      if (!res.rowCount) throw new Error(`student with MaSV=${MaSV} not found`)
+    } catch (error) {
+      console.error(error)
+      throw new Error('Failed to update student')
+    }
   }
-}
+};
 module.exports = StudentModel

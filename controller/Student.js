@@ -20,12 +20,23 @@ const StudentController = {
     }
   },
   async updateStudent (req, res) {
-    const MaSV = parseInt(req.params.MaSV)
+    const MaSV = req.params.MaSV
     const studentData = req.body.studentData
 
     try {
       const student = await StudentModel.updateStudent(MaSV, studentData)
       res.status(200).json(student)
+    } catch (error) {
+      console.log(error)
+      res.status(500).json({ error: 'Internal server error' })
+    }
+  },
+  async deleteStudent (req, res) {
+    const MaSV = req.params.MaSV
+
+    try {
+      await StudentModel.deleteStudenrt(MaSV)
+      res.status(200).json({message: "Delete Success"})
     } catch (error) {
       console.log(error)
       res.status(500).json({ error: 'Internal server error' })
