@@ -9,6 +9,16 @@ const StudentController = {
       res.status(500).json({ error: 'Internal server error' })
     }
   },
+  async getStudentByname (req, res) {
+    const name = req.body.name.toLowerCase()
+    try {
+      const students = await StudentModel.getStudentByname(name)
+      res.status(200).json(students)
+    } catch (error) {
+      console.error(error)
+      res.status(500).json({ error: 'Internal server error' })
+    }
+  },
   async insertStudent (req, res) {
     const studentData = req.body.studentData
     try {
@@ -36,7 +46,7 @@ const StudentController = {
 
     try {
       await StudentModel.deleteStudenrt(MaSV)
-      res.status(200).json({message: "Delete Success"})
+      res.status(200).json({ message: 'Delete Success' })
     } catch (error) {
       console.log(error)
       res.status(500).json({ error: 'Internal server error' })
