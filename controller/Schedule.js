@@ -44,7 +44,7 @@ const ScheduleController = {
         }
     },
     async DELETESchedule(req, res){
-        const id = req.params.data
+        const id = req.params.id
         if(!id) return res.status(400).send()
         else{
             try {
