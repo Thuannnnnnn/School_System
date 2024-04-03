@@ -1,6 +1,5 @@
 {
   "name": "Student_backend",
-  "packageManager": "yarn@4.1.1",
   "scripts": {
     "start": "node app.js",
     "dev": "nodemon app.js"
