@@ -66,7 +66,6 @@ const ClassStudentController = {
             }
         }
     }
-    
-}
+};
 
 module.exports = ClassStudentController

@@ -9,7 +9,7 @@ const ClassStudentModel = {
   async insertClassStudent(ClassStudentData) {
     const { MaSV, Cl_Id } = ClassStudentData;
 
-    const queryText = ` INSERT INTO public."Class_Student" (
+    const queryText = `INSERT INTO public."Class_Student" (
             "MaSV", 
             "Cl_Id"
             )
