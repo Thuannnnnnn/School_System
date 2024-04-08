@@ -1,7 +1,9 @@
 const express = require('express');
 const session = require('express-session'); // Import express-session
 const passport = require('passport');
+
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
+const {generateTokenAndRedirect} = require('../middleware/auth')
 require('dotenv').config();
 const router = express.Router();
 
@@ -23,20 +25,14 @@ passport.use(new GoogleStrategy({
 ));
 
 router.get('/google',
-    passport.authenticate('google', { scope: ['profile','email'] })
+    passport.authenticate('google', { scope: ['profile', 'email'] })
 );
 
 router.get('/google/callback',
     passport.authenticate('google', { failureRedirect: '/' }),
-    function (req, res) {
-       
-        if (req.user && req.user.emails && req.user.emails.length > 0) {
-            
-            console.log(req.user.emails[0].value);
-        } else {
-            console.log("Không có email được cung cấp");
-        }
-        res.redirect('/success');
+    async function (req, res) {
+        generateTokenAndRedirect(req, res)
+
     }
 );
 
