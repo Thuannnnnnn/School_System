@@ -3,8 +3,16 @@ const app = express()
 const port = 3000
 const pool = require('./connectDB')
 const cors = require('cors')
+const session = require('express-session');
+require('dotenv').config();
+app.use(cors());
+app.use(session({
+  secret: process.env.ACCESS_TOKEN_SECRET,
+  resave: false,
+  saveUninitialized: false,
+  cookie: { secure: false }
+}));
 
-app.use(cors())
 app.use(express.json())
 const Student = require('./routes/Student')
 const Teacher = require('./routes/Teacher')

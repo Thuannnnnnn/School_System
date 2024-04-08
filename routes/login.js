@@ -3,7 +3,7 @@ const session = require('express-session'); // Import express-session
 const passport = require('passport');
 
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
-const {generateTokenAndRedirect} = require('../middleware/auth')
+const { generateTokenAndRedirect } = require('../middleware/auth')
 require('dotenv').config();
 const router = express.Router();
 
@@ -35,7 +35,14 @@ router.get('/google/callback',
 
     }
 );
+router.get("/login/sucess", async (req, res) => {
 
+    if (req.user) {
+        res.status(200).json({ message: "user Login", user: req.user })
+    } else {
+        res.status(400).json({ message: "Not Authorized" })
+    }
+})
 passport.serializeUser(function (user, done) {
     done(null, user);
 });
