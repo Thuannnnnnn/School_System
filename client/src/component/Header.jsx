@@ -48,21 +48,20 @@ function Header() {
       document.removeEventListener("touchend", handleClickOutsideMobile);
     };
   }, []);
-
   return (
-    <div>
-      <nav class="bg-white dark:bg-gray-800  shadow py-4 ">
-        <div class="px-8 mx-auto max-w-7xl">
-          <div class="flex items-center justify-between h-16">
-            <div class=" flex items-center">
-              <a class="flex-shrink-0" href="/">
+    <div >
+      <nav className="bg-white dark:bg-gray-800  shadow py-4 ">
+        <div className="px-8 mx-auto max-w-7xl">
+          <div className="flex items-center justify-between h-16">
+            <div className=" flex items-center">
+              <a className="flex-shrink-0" href="/">
                 <img
-                  class="w-8 h-8"
+                  className="w-8 h-8"
                   src="https://th.bing.com/th/id/OIP.nXiwCjPqfY93dzmNBiwcXAHaHa?rs=1&pid=ImgDetMain"
                   alt="Workflow"
                 />
               </a>
-              <div class="hidden md:block">
+              <div className="hidden md:block">
                 <div className="flex items-baseline ml-10 space-x-4">
                   <NavLink
                     exact
@@ -108,10 +107,10 @@ function Header() {
                 </div>
               </div>
             </div>
-            <div class="block">
-              <div class="flex items-center ml-4 md:ml-6">
-                <div class="relative ml-3">
-                  <div class="relative inline-block text-left">
+            <div className="block">
+              <div className="flex items-center ml-4 md:ml-6">
+                <div className="relative ml-3">
+                  <div className="relative inline-block text-left">
                     <div className="sm:hidden">
                       <img
                         className="w-12 h-12 rounded-full"
@@ -175,14 +174,14 @@ function Header() {
               <div class="flex -mr-2 md:hidden">
                 <button
                   type="button"
-                  class="menu-toggle1 text-gray-800 dark:text-white hover:text-gray-300 inline-flex items-center justify-center p-2 rounded-md focus:outline-none"
+                  className="menu-toggle1 text-gray-800 dark:text-white hover:text-gray-300 inline-flex items-center justify-center p-2 rounded-md focus:outline-none"
                   onClick={toggleMenu1}
                 >
                   <svg
                     width="20"
                     height="20"
                     fill="currentColor"
-                    class="w-8 h-8 menu-toggle1"
+                    className="w-8 h-8 menu-toggle1"
                     viewBox="0 0 1792 1792"
                     xmlns="http://www.w3.org/2000/svg"
                   >

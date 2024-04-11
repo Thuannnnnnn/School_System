@@ -4,7 +4,7 @@ import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
 
 const UseRole = (url) => {
-  
+
 
   const [token, setToken] = useState("");
 
@@ -16,10 +16,10 @@ const UseRole = (url) => {
       console.log("No token found.");
     }
   }, []);
-  
+
   const [data, setData] = useState([]);
 
- useEffect(() => {
+  useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
@@ -37,9 +37,16 @@ const UseRole = (url) => {
         console.log(error);
       }
     };
+    if (token) {
+      const decodedToken = jwtDecode(token);
+      const currentTime = Date.now() / 1000;
+      if (decodedToken.exp < currentTime) {
+        window.location.href = "/login";
+      }
+    }
 
     fetchData();
-  }, [token,url]);
+  }, [token, url]);
 
   const [user, setUser] = useState(null);
   useEffect(() => {
