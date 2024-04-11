@@ -1,16 +1,23 @@
 import React, { useState, useRef, useEffect } from "react";
 import { NavLink } from "react-router-dom";
-
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isMenuOpen1, setIsMenuOpen1] = useState(false);
   const menuRef = useRef(null);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
+  const toggleMenu1 = () => {
+    setIsMenuOpen1(!isMenuOpen1);
+  };
 
   const handleClickOutside = (event) => {
-    if (menuRef.current && !menuRef.current.contains(event.target)) {
+    if (
+      menuRef.current &&
+      !menuRef.current.contains(event.target) &&
+      !event.target.closest(".menu-toggle")
+    ) {
       setIsMenuOpen(false);
     }
   };
@@ -21,6 +28,27 @@ function Header() {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
+
+  const handleClickOutsideMobile = (event) => {
+    if (
+      menuRef.current &&
+      !menuRef.current.contains(event.target) &&
+      !event.target.closest(".menu-toggle1")
+    ) {
+      setIsMenuOpen1(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("touchstart", handleClickOutsideMobile);
+    document.addEventListener("touchend", handleClickOutsideMobile);
+
+    return () => {
+      document.removeEventListener("touchstart", handleClickOutsideMobile);
+      document.removeEventListener("touchend", handleClickOutsideMobile);
+    };
+  }, []);
+
   return (
     <div>
       <nav class="bg-white dark:bg-gray-800  shadow py-4 ">
@@ -84,20 +112,28 @@ function Header() {
               <div class="flex items-center ml-4 md:ml-6">
                 <div class="relative ml-3">
                   <div class="relative inline-block text-left">
-                    <div>
+                    <div className="sm:hidden">
+                      <img
+                        className="w-12 h-12 rounded-full"
+                        src="https://source.unsplash.com/grayscale-photography-of-man-wearing-crew-neck-shirt-jmURdhtm7Ng"
+                        alt="pic"
+                      />
+                    </div>
+                    <div className="hidden sm:block">
                       <button
                         type="button"
-                        class="  flex items-center justify-center w-full rounded-md  px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-50 hover:bg-gray-50 dark:hover:bg-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-gray-500"
+                        onClick={toggleMenu}
+                        className="menu-toggle flex items-center justify-center w-full rounded-md px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-50 hover:bg-gray-50 dark:hover:bg-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-gray-500"
                         id="options-menu"
                       >
                         <img
                           className="w-12 h-12 rounded-full"
-                          onClick={toggleMenu}
                           src="https://source.unsplash.com/grayscale-photography-of-man-wearing-crew-neck-shirt-jmURdhtm7Ng"
                           alt="pic"
                         />
                       </button>
                     </div>
+
                     {isMenuOpen && (
                       <div
                         ref={menuRef}
@@ -110,30 +146,21 @@ function Header() {
                           aria-labelledby="options-menu"
                         >
                           <a
-                            href="#"
+                            href="/"
                             className="block px-4 py-2 text-md text-gray-700 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-100 dark:hover:text-white dark:hover:bg-gray-600"
                             role="menuitem"
                           >
                             <span className="flex flex-col">
-                              <span>Settings</span>
+                              <span>Profile</span>
                             </span>
                           </a>
                           <a
-                            href="#"
+                            href="/"
                             className="block px-4 py-2 text-md text-gray-700 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-100 dark:hover:text-white dark:hover:bg-gray-600"
                             role="menuitem"
                           >
                             <span className="flex flex-col">
-                              <span>Account</span>
-                            </span>
-                          </a>
-                          <a
-                            href="#"
-                            className="block px-4 py-2 text-md text-gray-700 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-100 dark:hover:text-white dark:hover:bg-gray-600"
-                            role="menuitem"
-                          >
-                            <span className="flex flex-col">
-                              <span>Logout</span>
+                              <span>Log Out</span>
                             </span>
                           </a>
                         </div>
@@ -143,48 +170,91 @@ function Header() {
                 </div>
               </div>
             </div>
-            <div class="flex -mr-2 md:hidden">
-              <button class="text-gray-800 dark:text-white hover:text-gray-300 inline-flex items-center justify-center p-2 rounded-md focus:outline-none">
-                <svg
-                  width="20"
-                  height="20"
-                  fill="currentColor"
-                  class="w-8 h-8"
-                  viewBox="0 0 1792 1792"
-                  xmlns="http://www.w3.org/2000/svg"
+
+            <div className=" md:hidden">
+              <div class="flex -mr-2 md:hidden">
+                <button
+                  type="button"
+                  class="menu-toggle1 text-gray-800 dark:text-white hover:text-gray-300 inline-flex items-center justify-center p-2 rounded-md focus:outline-none"
+                  onClick={toggleMenu1}
                 >
-                  <path d="M1664 1344v128q0 26-19 45t-45 19h-1408q-26 0-45-19t-19-45v-128q0-26 19-45t45-19h1408q26 0 45 19t19 45zm0-512v128q0 26-19 45t-45 19h-1408q-26 0-45-19t-19-45v-128q0-26 19-45t45-19h1408q26 0 45 19t19 45zm0-512v128q0 26-19 45t-45 19h-1408q-26 0-45-19t-19-45v-128q0-26 19-45t45-19h1408q26 0 45 19t19 45z"></path>
-                </svg>
-              </button>
+                  <svg
+                    width="20"
+                    height="20"
+                    fill="currentColor"
+                    class="w-8 h-8 menu-toggle1"
+                    viewBox="0 0 1792 1792"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path d="M1664 1344v128q0 26-19 45t-45 19h-1408q-26 0-45-19t-19-45v-128q0-26 19-45t45-19h1408q26 0 45 19t19 45zm0-512v128q0 26-19 45t-45 19h-1408q-26 0-45-19t-19-45v-128q0-26 19-45t45-19h1408q26 0 45 19t19 45zm0-512v128q0 26-19 45t-45 19h-1408q-26 0-45-19t-19-45v-128q0-26 19-45t45-19h1408q26 0 45 19t19 45z"></path>
+                  </svg>
+                </button>
+              </div>
+              {isMenuOpen1 && (
+                <div
+                  ref={menuRef}
+                  className="absolute flex flex-col right-0 w-56 mt-2 origin-top-right bg-white rounded-md shadow-lg dark:bg-gray-800 ring-1 ring-black ring-opacity-5"
+                >
+                  <NavLink
+                    exact
+                    to="/"
+                    className={({ isActive }) =>
+                      isActive
+                        ? "text-black dark:text-white dark:hover:text-white px-3 py-2 rounded-md text-md font-bold"
+                        : "text-gray-500 hover:text-gray-800 dark:hover:text-white px-3 py-2 rounded-md text-md font-medium"
+                    }
+                  >
+                    Home
+                  </NavLink>
+                  <NavLink
+                    to="/schdule"
+                    className={({ isActive }) =>
+                      isActive
+                        ? "text-black dark:text-white dark:hover:text-white px-3 py-2 rounded-md text-md font-bold"
+                        : "text-gray-500 hover:text-gray-800 dark:hover:text-white px-3 py-2 rounded-md text-md font-medium"
+                    }
+                  >
+                    Schdule
+                  </NavLink>
+                  <NavLink
+                    to="/mark_report"
+                    className={({ isActive }) =>
+                      isActive
+                        ? "text-black dark:text-white dark:hover:text-white px-3 py-2 rounded-md text-md font-bold"
+                        : "text-gray-500 hover:text-gray-800 dark:hover:text-white px-3 py-2 rounded-md text-md font-medium"
+                    }
+                  >
+                    Mark Report
+                  </NavLink>
+                  <NavLink
+                    to="/attendent_report"
+                    className={({ isActive }) =>
+                      isActive
+                        ? "text-black dark:text-white dark:hover:text-white px-3 py-2 rounded-md text-md font-bold"
+                        : "text-gray-500 hover:text-gray-800 dark:hover:text-white px-3 py-2 rounded-md text-md font-medium"
+                    }
+                  >
+                    Attendent Report
+                  </NavLink>
+                  <NavLink
+                    to="/profile"
+                    className={({ isActive }) =>
+                      isActive
+                        ? "text-black dark:text-white dark:hover:text-white px-3 py-2 rounded-md text-md font-bold"
+                        : "text-gray-500 hover:text-gray-800 dark:hover:text-white px-3 py-2 rounded-md text-md font-medium"
+                    }
+                  >
+                    Profile
+                  </NavLink>
+                  <NavLink
+                    to="/"
+                    className="text-gray-500 hover:text-gray-800 dark:hover:text-white px-3 py-2 rounded-md text-md font-medium"
+                  >
+                    Log Out
+                  </NavLink>
+                </div>
+              )}
             </div>
-          </div>
-        </div>
-        <div class="md:hidden">
-          <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-            <a
-              class="text-gray-300 hover:text-gray-800 dark:hover:text-white block px-3 py-2 rounded-md text-base font-medium"
-              href="/#"
-            >
-              Home
-            </a>
-            <a
-              class="text-gray-800 dark:text-white block px-3 py-2 rounded-md text-base font-medium"
-              href="/#"
-            >
-              Gallery
-            </a>
-            <a
-              class="text-gray-300 hover:text-gray-800 dark:hover:text-white block px-3 py-2 rounded-md text-base font-medium"
-              href="/#"
-            >
-              Content
-            </a>
-            <a
-              class="text-gray-300 hover:text-gray-800 dark:hover:text-white block px-3 py-2 rounded-md text-base font-medium"
-              href="/#"
-            >
-              Contact
-            </a>
           </div>
         </div>
       </nav>
