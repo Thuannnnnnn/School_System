@@ -49,7 +49,7 @@ function Header() {
     };
   }, []);
   return (
-    <div >
+    <div>
       <nav className="bg-white dark:bg-gray-800  shadow py-4 ">
         <div className="px-8 mx-auto max-w-7xl">
           <div className="flex items-center justify-between h-16">
