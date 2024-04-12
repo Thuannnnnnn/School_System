@@ -4,7 +4,7 @@ import avatar from "../asset/avatar.svg";
 
 function SigninPage() {
   const handleLogin = () => {
-    window.location.href = "http://localhost:5000/auth/google";
+    window.open(`${process.env.REACT_APP_API_URL}/auth/google`);
   };
 
   return (
@@ -13,12 +13,13 @@ function SigninPage() {
         src={wave}
         className="fixed hidden lg:block inset-0 h-full"
         style={{ zIndex: -1 }}
+        alt="null"
       />
 
       <div className="w-screen h-screen flex flex-col justify-center items-center lg:grid lg:grid-cols-2">
-        <img src={unlock} className="hidden ml-48 lg:block w-56" />
+        <img src={unlock} className="hidden ml-48 lg:block w-56" alt="null" />
         <form className="flex flex-col justify-center items-center bg-orange-200 border border-gray-400 rounded-md p-8 shadow-lg backdrop-filter backdrop-blur-sm bg-opacity-30 relative w-full max-w-md">
-          <img src={avatar} className="w-32" />
+          <img src={avatar} className="w-32" alt="null" />
           <h1 className="my-8 font-bold font-serif text-gray-400 text-3xl text-center ">
             Welcome to you
           </h1>
