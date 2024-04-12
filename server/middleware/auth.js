@@ -16,7 +16,7 @@ async function generateTokenAndRedirect(req, res) {
 
             res.cookie('token', token);
 
-
+            
             res.redirect('http://localhost:3000/home');
         } else {    
             return res.status(404).json({ message: 'User not found' });

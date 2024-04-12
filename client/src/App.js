@@ -9,7 +9,7 @@ function App() {
   return (
     <Router>
       <div className="flex flex-col min-h-screen">
-        <Header />
+        {/* <Header /> */}
         <main className="flex-grow">
           
           <Routes>
@@ -17,7 +17,7 @@ function App() {
           <Route path="/home" element={<HomePage />} />
           </Routes>
         </main>
-        <Footer />
+        {/* <Footer /> */}
       </div>
     </Router>
   );
