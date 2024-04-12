@@ -14,6 +14,7 @@ const UseRole = (url) => {
       setToken(tokenValue);
     } else {
       console.log("No token found.");
+      window.location.href = "/login";
     }
   }, []);
 
