@@ -1,18 +1,47 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 function TableclassList({ data }) {
   const [currentPage, setCurrentPage] = useState(1);
+  const [filteredData, setFilteredData] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+
   const itemsPerPage = 3;
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = data.slice(indexOfFirstItem, indexOfLastItem);
+  const currentItems = filteredData.slice(indexOfFirstItem, indexOfLastItem);
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
-  const isOnlyOnePage = Math.ceil(data.length / itemsPerPage) === 1;
+  const isOnlyOnePage = Math.ceil(filteredData.length / itemsPerPage) === 1;
+
+  useEffect(() => {
+    const filtered = data.filter((classItem) => {
+      setCurrentPage(1);
+      return classItem.Cl_Name.toLowerCase().includes(searchTerm.toLowerCase());
+    });
+    setFilteredData(filtered);
+  }, [searchTerm, data]);
+
+  const handleSearch = (e) => {
+    setSearchTerm(e.target.value);
+  };
   return (
     <div className="container max-w-3xl px-4 mx-auto sm:px-8">
       <div className="py-8">
-        <div className="flex flex-row justify-between w-full mb-1 sm:mb-0"></div>
+        <div className="flex flex-row justify-end w-full mb-1 sm:mb-0">
+          {" "}
+          <div className="">
+            <div className=" relative ">
+              <input
+                type="text"
+                value={searchTerm}
+                onChange={handleSearch}
+                id="form-subscribe-Filter"
+                className="rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
+                placeholder="name"
+              />
+            </div>
+          </div>
+        </div>
         <div className="px-4 py-4 -mx-4 overflow-x-auto sm:-mx-8 sm:px-8">
           <div className="inline-block min-w-full overflow-hidden rounded-lg shadow">
             <table className="min-w-full leading-normal">
@@ -36,16 +65,6 @@ function TableclassList({ data }) {
                   >
                     Teacher
                   </th>
-                  <th
-                    scope="col"
-                    className="px-5 py-3 text-sm font-normal text-left text-gray-800 uppercase bg-white border-b border-gray-200"
-                  >
-                    status
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-5 py-3 text-sm font-normal text-left text-gray-800 uppercase bg-white border-b border-gray-200"
-                  ></th>
                 </tr>
               </thead>
               <tbody>
@@ -69,15 +88,6 @@ function TableclassList({ data }) {
                       <p className="text-gray-900 whitespace-no-wrap">
                         {classItem.Te_Name}
                       </p>
-                    </td>
-                    <td className="px-5 py-5 text-sm bg-white border-b border-gray-200">
-                      <span className="relative inline-block px-3 py-1 font-semibold leading-tight text-green-900">
-                        <span
-                          aria-hidden="true"
-                          className="absolute inset-0 bg-green-200 rounded-full opacity-50"
-                        ></span>
-                        <span className="relative">active</span>
-                      </span>
                     </td>
                   </tr>
                 ))}
