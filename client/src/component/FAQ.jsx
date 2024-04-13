@@ -3,7 +3,10 @@ import Accordion from "./Accordion ";
 
 const FAQ = () => {
   return (
-    <div className="p-4 bg-gray-200 rounded-lg">
+    <div className="p-4 bg-gray-200 rounded-lg h-96">
+      <div className="text-4xl flex justify-center pb-4">
+        Lựa chọn
+      </div>
       <Accordion
         title="option 1"
         links={[

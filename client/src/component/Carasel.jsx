@@ -13,22 +13,22 @@ const images = [
   {
     label: "San Francisco – Oakland Bay Bridge, United States",
     imgPath:
-      "https://images.unsplash.com/photo-1537944434965-cf4679d1a598?auto=format&fit=crop&w=400&h=250&q=60",
+      "https://www.vietnamfineart.com.vn/wp-content/uploads/2023/03/hinh-nen-anime-3d-cho-may-tinh-11.jpg",
   },
   {
     label: "Bird",
     imgPath:
-      "https://images.unsplash.com/photo-1538032746644-0212e812a9e7?auto=format&fit=crop&w=400&h=250&q=60",
+    "https://www.vietnamfineart.com.vn/wp-content/uploads/2023/03/hinh-nen-anime-3d-cho-may-tinh-11.jpg",
   },
   {
     label: "Bali, Indonesia",
     imgPath:
-      "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=400&h=250",
+    "https://www.vietnamfineart.com.vn/wp-content/uploads/2023/03/hinh-nen-anime-3d-cho-may-tinh-11.jpg",
   },
   {
     label: "Goč, Serbia",
     imgPath:
-      "https://images.unsplash.com/photo-1512341689857-198e7e2f3ca8?auto=format&fit=crop&w=400&h=250&q=60",
+    "https://www.vietnamfineart.com.vn/wp-content/uploads/2023/03/hinh-nen-anime-3d-cho-may-tinh-11.jpg",
   },
 ];
 
@@ -42,7 +42,7 @@ function Carasel() {
 
   return (
     <div className="flex justify-center">
-      <Box sx={{ maxWidth: 400, flexGrow: 1 }}>
+      <Box sx={{ width: "full", flexGrow: 1 }}>
         <Paper
           square
           elevation={0}
@@ -61,6 +61,7 @@ function Carasel() {
           index={activeStep}
           onChangeIndex={handleStepChange}
           enableMouseEvents
+          className=" rounded-xl"
         >
           {images.map((step, index) => (
             <div key={step.label}>
@@ -68,9 +69,8 @@ function Carasel() {
                 <Box
                   component="img"
                   sx={{
-                    height: 300,
+                    height: 334,
                     display: "block",
-                    maxWidth: 500,
                     overflow: "hidden",
                     width: "100%",
                   }}

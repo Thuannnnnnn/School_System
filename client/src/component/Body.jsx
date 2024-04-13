@@ -24,7 +24,7 @@ const Body = () => {
       </div>
       <div>
         <div className="flex justify-center text-4xl pt-4 pb-4">Sự kiện trong tháng</div>
-        <div className="p-4 grid grid-cols-4 gap-4">
+        <div className="p-4 md:grid md:grid-cols-4 gap-4">
           <Event/>
         </div>
       </div>
