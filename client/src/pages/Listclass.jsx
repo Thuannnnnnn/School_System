@@ -8,9 +8,8 @@ function Listclass() {
   const [data, setData] = useState([]);
 
   const getData = async () => {
-    const { data } = await axios.get(
-      `http://localhost:5000/class/getClassList`
-    );
+    const url = `${process.env.REACT_APP_API_URL}/class/getClassList`;
+    const { data } = await axios.get(url);
     setData(data);
   };
 

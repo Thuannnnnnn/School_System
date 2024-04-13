@@ -161,7 +161,7 @@ function Header() {
                 </svg>
               </Button>
               <Drawer open={openDraw} onClose={toggleDrawer(false)}>
-                <div className="flex flex-col mt-12">
+                <div className="flex flex-col mt-12 pr-20">
                   <NavLink
                     exact
                     to="/"
