@@ -1,4 +1,5 @@
-import * as React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import { useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import MobileStepper from "@mui/material/MobileStepper";
@@ -9,36 +10,32 @@ import { autoPlay } from "react-swipeable-views-utils";
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
-const images = [
-  {
-    label: "San Francisco – Oakland Bay Bridge, United States",
-    imgPath:
-      "https://www.vietnamfineart.com.vn/wp-content/uploads/2023/03/hinh-nen-anime-3d-cho-may-tinh-11.jpg",
-  },
-  {
-    label: "Bird",
-    imgPath:
-    "https://www.vietnamfineart.com.vn/wp-content/uploads/2023/03/hinh-nen-anime-3d-cho-may-tinh-11.jpg",
-  },
-  {
-    label: "Bali, Indonesia",
-    imgPath:
-    "https://www.vietnamfineart.com.vn/wp-content/uploads/2023/03/hinh-nen-anime-3d-cho-may-tinh-11.jpg",
-  },
-  {
-    label: "Goč, Serbia",
-    imgPath:
-    "https://www.vietnamfineart.com.vn/wp-content/uploads/2023/03/hinh-nen-anime-3d-cho-may-tinh-11.jpg",
-  },
-];
+
 
 function Carasel() {
+  const [data, setData] = useState([]);
+
+  const getData = async () => {
+    try {
+      const response = await axios.get(`http://localhost:5000/Events/getEvents`);
+      setData(response.data);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+  
+  useEffect(() => {
+    getData();
+  }, []);
+
   const theme = useTheme();
   const [activeStep, setActiveStep] = React.useState(0);
-  const maxSteps = images.length;
+  const maxSteps = data.length;
   const handleStepChange = (step) => {
     setActiveStep(step);
   };
+
+
 
   return (
     <div className="flex justify-center">
@@ -54,7 +51,7 @@ function Carasel() {
             bgcolor: "background.default",
           }}
         >
-          <Typography>{images[activeStep].label}</Typography>
+          {data.length > 0 && <Typography>{data[activeStep].E_Name}</Typography>}
         </Paper>
         <AutoPlaySwipeableViews
           axis={theme.direction === "rtl" ? "x-reverse" : "x"}
@@ -63,7 +60,7 @@ function Carasel() {
           enableMouseEvents
           className=" rounded-xl"
         >
-          {images.map((step, index) => (
+          {data.map((step, index) => (
             <div key={step.label}>
               {Math.abs(activeStep - index) <= 2 ? (
                 <Box
@@ -74,8 +71,8 @@ function Carasel() {
                     overflow: "hidden",
                     width: "100%",
                   }}
-                  src={step.imgPath}
-                  alt={step.label}
+                  src={step.E_HorizontalPoster}
+                  alt={step.E_Name}
                 />
               ) : null}
             </div>
