@@ -1,11 +1,25 @@
-import logo from './logo.svg';
 import './App.css';
+import HomePage from './pages/Home';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Listclass from './pages/Listclass';
+import Signin from './pages/Signin';
+
 
 function App() {
   return (
-    <h1 className="text-3xl font-bold">
-      Hello world!
-    </h1>
+    <Router>
+
+
+
+
+      <Routes>
+        <Route path="/login" element={<Signin />} />
+        <Route path="/home" element={<HomePage />} />
+        <Route path="/class_list" element={<Listclass />} />
+
+      </Routes>
+
+    </Router>
   );
 }
 
