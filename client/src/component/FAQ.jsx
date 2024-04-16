@@ -69,13 +69,19 @@ const Teacher = [
 
 
 export default function FAQ() {
-  const { data, user } = UseRole(); 
+  const { user } = UseRole("http://localhost:5000/Student/getAll");
 
   const [openId, setOpenId] = React.useState(null);
 
   const handleClick = (id) => {
     setOpenId(id === openId ? null : id);
   };
+  let roleOptions =[];
+  if (user && user.role === "Student") {
+    roleOptions = Student;
+  } else if (user && user.role === "Teacher") {
+    roleOptions = Teacher;
+  }
 
   return (
     <List
@@ -88,7 +94,7 @@ export default function FAQ() {
         </ListSubheader>
       }
     >
-      {Student.map((item) => (
+      {roleOptions.map((item) => (
         <React.Fragment key={item.id}>
           <ListItemButton onClick={() => handleClick(item.id)}>
             <ListItemIcon>
