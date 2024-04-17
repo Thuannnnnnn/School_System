@@ -56,6 +56,28 @@ const ScheduleController = {
 
             }
     } 
+    },
+
+    async findStudent (req, res){
+            const { studentId } = req.params;
+            try {
+              const result = await ScheduleModel.findSchedule(studentId);
+              res.status(200).json(result);
+            } catch (error) {
+              console.error(error);
+              res.status(500).json({ error: "Failed to find Schedule" });
+            }
+},
+
+    async AllSchedulesWithStudent (req, res){
+        try {
+            const result = await ScheduleModel.getAllSchedulesWithStudentInfo;
+            res.status(200).json(result)
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({error: "failed to get all Student"})
+        }
     }
+
 }
 module.exports = ScheduleController;

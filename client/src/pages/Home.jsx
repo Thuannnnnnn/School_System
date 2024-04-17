@@ -1,9 +1,9 @@
 import React from "react";
-import UseRole from "../hooks/UserRole";
+import Login from "../hooks/TokenLogin";
 import Header from "../component/Header";
 import Footer from "../component/Footer";
 function Home() {
-  const { data, user } = UseRole("http://localhost:5000/Student/getAll");
+  const { data, user } = Login("http://localhost:5000/Student/getAll");
 
   return (
     <div className="flex flex-col min-h-screen">
