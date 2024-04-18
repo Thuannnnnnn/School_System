@@ -10,7 +10,7 @@ const ScoreController = {
         }
     },
     async getScoreByMaSV(req, res) {
-        const MaSV = req.body.MaSV;
+        const MaSV = req.params.MaSV;
         if (!MaSV) return res.sendStatus(400);
         else {
             try {
