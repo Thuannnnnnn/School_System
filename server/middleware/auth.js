@@ -12,7 +12,7 @@ async function generateTokenAndRedirect(req, res) {
                 studentId: userData[0].MaSV,
                 TeacherId: userData[0].Te_Id
             };
-            const token = jwt.sign(tokenPayload, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '30s' });
+            const token = jwt.sign(tokenPayload, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '120s' });
 
 
             res.cookie('token', token);

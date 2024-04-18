@@ -50,6 +50,29 @@ const ScheduleModel = {
           console.log(error)
           throw new Error('Failed to delete Schedule')
         }
-    }
+    },
+    
+
+async findSchedule(studentId) {
+  const queryText = `
+    SELECT Schedule.Sc_Slot, Class.Cl_Name, Subject.Sj_Name
+    FROM Schedule
+    JOIN Class ON Schedule.Cl_Id = Class.Cl_Id
+    JOIN Class_Student ON Class_Student.Cl_Id = Class.Cl_Id
+    JOIN Student ON Student.MaSV = Class_Student.MaSV
+    JOIN Subject ON Class.Mj_id = Subject.Mj_id
+    WHERE Student.MaSV = $1;
+  `;
+  const values = [studentId];
+  try {
+    const result = await query(queryText, values);
+    return result.rows;
+  } catch (error) {
+    console.error(error);
+    throw new Error('Failed to find Schedule');
+  }
+}
+
+
 }
 module.exports = ScheduleModel;
