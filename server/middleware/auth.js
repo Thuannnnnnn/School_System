@@ -8,8 +8,9 @@ async function generateTokenAndRedirect(req, res) {
         if (userData.length > 0) {
             const tokenPayload = {
                 email: req.user.emails[0].value,
-                role: userData[0].Role
-
+                role: userData[0].Role,
+                studentId: userData[0].MaSV,
+                TeacherId: userData[0].Te_Id
             };
             const token = jwt.sign(tokenPayload, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '30s' });
 
