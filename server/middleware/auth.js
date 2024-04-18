@@ -12,14 +12,14 @@ async function generateTokenAndRedirect(req, res) {
                 studentId: userData[0].MaSV,
                 TeacherId: userData[0].Te_Id
             };
-            const token = jwt.sign(tokenPayload, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '120s' });
+            const token = jwt.sign(tokenPayload, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '2h' });
 
 
             res.cookie('token', token);
 
-            
+
             res.redirect('http://localhost:3000/home');
-        } else {    
+        } else {
             return res.status(404).json({ message: 'User not found' });
         }
     } else {
@@ -42,7 +42,7 @@ function authenticateTokenForRole(role) {
             if (user.role !== role) {
                 return res.sendStatus(403).json({ message: 'role' });
             }
-            console.log("role: "+user.role)
+            console.log("role: " + user.role)
             req.user = user;
             next();
         });

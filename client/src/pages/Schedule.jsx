@@ -2,14 +2,15 @@ import React, { useState, useEffect } from "react";
 import Header from "../component/Header";
 import Footer from "../component/Footer";
 import axios from "axios";
-
+import DecodeToken from "../hooks/DecodeToken";
 function Schdule() {
-  const [data, setData] = useState([]);
-  const [studentId, setStudentId] = useState("");
+  const [data, setData] = useState([""]);
 
-  const getData = async () => {
+  const user = DecodeToken();
+
+  const getData = async (id) => {
     try {
-      const url = `${process.env.REACT_APP_API_URL}/Schedule/${studentId}`;
+      const url = `${process.env.REACT_APP_API_URL}/Schedule/getStudent/${id}`;
       const response = await axios.get(url);
       setData(response.data);
     } catch (error) {
@@ -18,10 +19,10 @@ function Schdule() {
   };
 
   useEffect(() => {
-    if (studentId) {
-      getData();
+    if (user) {
+      getData(user.studentId);
     }
-  }, [studentId]);
+  }, [user]);
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -32,6 +33,9 @@ function Schdule() {
             <div key={index}>
               <p>Date Begin: {scheduleItem.Sc_DateBegin}</p>
               <p>Date End: {scheduleItem.Sc_DateEnd}</p>
+              <p>
+                <b>SV</b>: {scheduleItem.MaSV}
+              </p>
             </div>
           ))
         ) : (
