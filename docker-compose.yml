@@ -6,19 +6,33 @@ services:
     volumes:
       - ./laravel-app:/var/www/html
     ports:
-      - 9000:80
+      - "9000:80"
   
   mysql_db:
-    image: mysql:latest
+    image: mysql:8.0
     environment:
-      MYSQL_ROOT_PASSWORD: root
+      MYSQL_ROOT_PASSWORD: 1234
       MYSQL_DATABASE: HighSchoolDB
     ports:
-    - 3306:3306
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
   
-  phpmyadmin:
-    image: phpmyadmin:latest
-    ports:
-      - 9001:80
-    environment:
-      - PMA_ARBITRARY=1
+  # phpmyadmin:
+  #   image: phpmyadmin:latest
+  #   ports:
+  #     - "9001:80"
+  #   environment:
+  #     - PMA_ARBITRARY=1
+  
+  # react:
+  #   build:
+  #     context: ./react-client
+  #   container_name: react
+  #   ports:
+  #     - "3000:3000"
+  #   volumes:
+  #     - ./react-client:/app
+
+volumes:
+  mysql_data:

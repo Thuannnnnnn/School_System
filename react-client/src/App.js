@@ -1,45 +1,38 @@
-import logo from './logo.svg';
-import './App.css';
-import React, { useState, useEffect } from 'react';
-import axios from "axios";
-function App() {
-  const [data, setData] = useState(null);
+import React, { Component, Suspense } from 'react'
+import { HashRouter, Route, Routes } from 'react-router-dom'
+import './scss/style.scss'
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get('http://localhost:9000/api/hello');
-        setData(response.data);
-        console.log(data)
-      } catch (err) {
-      
-      } finally {
-    
-      }
-    };
+const loading = (
+  <div className="pt-3 text-center">
+    <div className="sk-spinner sk-spinner-pulse"></div>
+  </div>
+)
 
-    fetchData();
-  }, []);
-  return (
-    <div className="App">
-      <header className="App-header">
-      <h1>Data from API:</h1>
-      <pre>{JSON.stringify(data, null, 2)}</pre>
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+// Containers
+const DefaultLayout = React.lazy(() => import('./layout/DefaultLayout'))
+
+// Pages
+const Login = React.lazy(() => import('./views/pages/login/Login'))
+const Register = React.lazy(() => import('./views/pages/register/Register'))
+const Page404 = React.lazy(() => import('./views/pages/page404/Page404'))
+const Page500 = React.lazy(() => import('./views/pages/page500/Page500'))
+
+class App extends Component {
+  render() {
+    return (
+      <HashRouter>
+        <Suspense fallback={loading}>
+          <Routes>
+            <Route exact path="/login" name="Login Page" element={<Login />} />
+            <Route exact path="/register" name="Register Page" element={<Register />} />
+            <Route exact path="/404" name="Page 404" element={<Page404 />} />
+            <Route exact path="/500" name="Page 500" element={<Page500 />} />
+            <Route path="*" name="Home" element={<DefaultLayout />} />
+          </Routes>
+        </Suspense>
+      </HashRouter>
+    )
+  }
 }
 
-export default App;
+export default App
